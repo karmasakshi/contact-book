@@ -10,6 +10,85 @@ export class ContactsService {
 
   constructor(private httpClient: HttpClient) { }
 
+  public addSeedContacts(): Observable<Contact[]> {
+
+    return this.httpClient.post<Contact[]>('http://localhost:1337/contacts', [
+      {
+        "email": "jack.pigeon@gmail.com",
+        "firstName": "Jack",
+        "lastName": "Pigeon",
+        "phone": "+91-78-234-23",
+        "createdAt": "2017-09-02T15:44:09.289Z",
+        "updatedAt": "2017-09-02T15:44:09.289Z",
+        "id": 12
+      },
+      {
+        "email": "bojack.pigeon@gmail.com",
+        "firstName": "BoJack",
+        "lastName": "Pigeon",
+        "phone": "+91-79-234-23",
+        "createdAt": "2017-09-02T15:51:17.782Z",
+        "updatedAt": "2017-09-02T15:51:17.782Z",
+        "id": 13
+      },
+      {
+        "email": "bojack.horseman@gmail.com",
+        "firstName": "BoJack",
+        "lastName": "Horseman",
+        "phone": "+91-769-69",
+        "createdAt": "2017-09-02T15:51:32.640Z",
+        "updatedAt": "2017-09-02T15:51:32.640Z",
+        "id": 14
+      },
+      {
+        "email": "walter.white@gmail.com",
+        "firstName": "Walter",
+        "lastName": "White",
+        "phone": "+90-769-69",
+        "createdAt": "2017-09-02T15:51:46.846Z",
+        "updatedAt": "2017-09-02T15:51:46.846Z",
+        "id": 15
+      },
+      {
+        "email": "bazooka.white@gmail.com",
+        "firstName": "Walter",
+        "lastName": "Boom",
+        "phone": "+90-769-69-11",
+        "createdAt": "2017-09-02T15:51:57.900Z",
+        "updatedAt": "2017-09-02T15:51:57.900Z",
+        "id": 16
+      },
+      {
+        "email": "afrojack.white@gmail.com",
+        "firstName": "Afrojack",
+        "lastName": "Water",
+        "phone": "+90-7-69-11",
+        "createdAt": "2017-09-02T15:52:21.326Z",
+        "updatedAt": "2017-09-02T15:52:21.326Z",
+        "id": 17
+      },
+      {
+        "email": "lolmax.tutu@gmail.com",
+        "firstName": "Tutu",
+        "lastName": "Lol",
+        "phone": "+90-7-69-111",
+        "createdAt": "2017-09-02T15:52:41.566Z",
+        "updatedAt": "2017-09-02T15:52:41.566Z",
+        "id": 18
+      },
+      {
+        "email": "donald.drumpf@gmail.com",
+        "firstName": "Donald",
+        "lastName": "Drumpf",
+        "phone": "+1-11-11-111",
+        "createdAt": "2017-09-02T15:53:04.619Z",
+        "updatedAt": "2017-09-02T15:53:04.619Z",
+        "id": 19
+      }
+    ]);
+
+  }
+
   public getContactsCount(): Observable<number> {
 
     return this.httpClient.get<number>('http://localhost:1337/contacts/count');

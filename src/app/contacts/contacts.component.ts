@@ -38,6 +38,24 @@ export class ContactsComponent implements OnInit {
 
   }
 
+  public addSeedContacts(): void {
+
+    this.componentStatus = 'loading';
+
+    this.contactsService.addSeedContacts().subscribe(
+
+      (response) => {
+
+        this.getPageContacts(this.pageSize, 0);
+
+      },
+
+      (error) => { }
+
+    );
+
+  }
+
   public getContactsCount(): void {
 
     this.contactsService.getContactsCount().subscribe(

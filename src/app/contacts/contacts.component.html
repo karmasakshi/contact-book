@@ -1,3 +1,5 @@
+<button class="btn btn-primary" type="button" (click)="addSeedContacts()">Add Seed Contacts</button>
+
 <clr-datagrid (clrDgRefresh)="updatePage($event)" [clrDgLoading]="componentStatus === 'loading'">
 
   <clr-dg-column [clrDgField]="'firstName'">
@@ -17,11 +19,11 @@
   </clr-dg-column>
 
   <clr-dg-column [clrDgField]="'createdAt'">
-    <ng-container *clrDgHideableColumn="{ hidden: true }">Created At</ng-container>
+    <ng-container *clrDgHideableColumn="{ hidden: false }">Created At</ng-container>
   </clr-dg-column>
 
   <clr-dg-column [clrDgField]="'updatedAt'">
-    <ng-container *clrDgHideableColumn="{ hidden: true }">Updated At</ng-container>
+    <ng-container *clrDgHideableColumn="{ hidden: false }">Updated At</ng-container>
   </clr-dg-column>
 
   <clr-dg-row *ngFor="let contact of pageContacts">
