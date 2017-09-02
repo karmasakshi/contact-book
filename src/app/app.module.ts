@@ -11,7 +11,6 @@ import { ContactsService } from './services/contacts.service';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { SideNavComponent } from './side-nav/side-nav.component';
 import { ContactsComponent } from './contacts/contacts.component';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { ContactsComponent } from './contacts/contacts.component';
   declarations: [
     AppComponent,
     HeaderComponent,
-    SideNavComponent,
     ContactsComponent
   ],
   imports: [

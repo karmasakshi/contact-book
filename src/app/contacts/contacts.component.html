@@ -8,9 +8,29 @@
     <ng-container *clrDgHideableColumn="{ hidden: false }">Last Name</ng-container>
   </clr-dg-column>
 
+  <clr-dg-column [clrDgField]="'email'">
+    <ng-container *clrDgHideableColumn="{ hidden: false }">Email</ng-container>
+  </clr-dg-column>
+
+  <clr-dg-column [clrDgField]="'phone'">
+    <ng-container *clrDgHideableColumn="{ hidden: false }">Phone</ng-container>
+  </clr-dg-column>
+
+  <clr-dg-column [clrDgField]="'createdAt'">
+    <ng-container *clrDgHideableColumn="{ hidden: true }">Created At</ng-container>
+  </clr-dg-column>
+
+  <clr-dg-column [clrDgField]="'updatedAt'">
+    <ng-container *clrDgHideableColumn="{ hidden: true }">Updated At</ng-container>
+  </clr-dg-column>
+
   <clr-dg-row *ngFor="let contact of pageContacts">
     <clr-dg-cell>{{ contact.firstName }}</clr-dg-cell>
     <clr-dg-cell>{{ contact.lastName }}</clr-dg-cell>
+    <clr-dg-cell>{{ contact.email }}</clr-dg-cell>
+    <clr-dg-cell>{{ contact.phone }}</clr-dg-cell>
+    <clr-dg-cell>{{ contact.createdAt | date }}</clr-dg-cell>
+    <clr-dg-cell>{{ contact.updatedAt | date }}</clr-dg-cell>
   </clr-dg-row>
 
   <clr-dg-footer>
