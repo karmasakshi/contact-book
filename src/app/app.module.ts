@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -5,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from 'clarity-angular';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { ContactsService } from './services/contacts.service';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -21,6 +24,8 @@ import { ContactsComponent } from './contacts/contacts.component';
   ],
   imports: [
 
+    HttpClientModule,
+
     BrowserModule,
     BrowserAnimationsModule,
 
@@ -28,6 +33,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 
     AppRoutingModule
 
-  ]
+  ],
+  providers: [ContactsService]
 })
 export class AppModule { }
