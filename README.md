@@ -24,6 +24,7 @@ Any route will redirect to the base route `/`. Click on `Add Seed Contacts` butt
 2. Paginate contacts by clicking on the page numbers in the datagrid footer.
 3. Hide / Show columns by clicking on the column selector in the datagrid footer.
 4. Sort items by clicking on the column header.
+5. Search all contacts using the search bar.
 
 ## Tests
 

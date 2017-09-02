@@ -1,9 +1,17 @@
 <!-- Action Bar -->
 <div class="row">
-  <div class="col-xs-12 text-right">
-    <button aria-label="Add Seed Contacts" class="btn btn-primary" style="margin: 0;" type="button" (click)="addSeedContacts()">Add Seed Contacts</button>
-    <button aria-label="Search Contacts" class="btn btn-primary" style="margin: 0;" type="button" (click)="searchContacts()">Search Contacts</button>
+
+  <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9 col-xl-10">
+    <form [formGroup]="searchFormGroup">
+      <label for="search"><clr-icon shape="search"></clr-icon></label>
+      <input style="width: 90%;" id="search" formControlName="searchKey" type="text" placeholder="Search Contacts">
+    </form>
   </div>
+
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 text-right">
+    <button aria-label="Add Seed Contacts" class="btn btn-primary" style="margin: 10px 0;" type="button" (click)="addSeedContacts()">Add Seed Contacts</button>
+  </div>
+
 </div>
 
 <!-- Datagrid -->

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
+import 'rxjs/add/operator/debounceTime';
 
 import { State } from 'clarity-angular';
 
@@ -17,8 +20,9 @@ export class ContactsComponent implements OnInit {
   public contactsCount: number;
   public pageContacts: Contact[];
   public pageSize: number;
+  public searchFormGroup: FormGroup;
 
-  constructor(private contactsService: ContactsService) {
+  constructor(private formBuilder: FormBuilder, private contactsService: ContactsService) {
 
     this.componentStatus = 'loaded';
 
@@ -28,16 +32,40 @@ export class ContactsComponent implements OnInit {
 
     this.pageSize = 5;
 
+    this.searchFormGroup = this.formBuilder.group({
+      searchKey: ['']
+    });
+
   }
 
   ngOnInit() {
 
+    // Subscribe to changes of the search input.
+    this.searchFormGroup.valueChanges.debounceTime(300).subscribe(
+
+      (changes) => {
+
+        console.log(changes);
+
+        this.searchContacts(changes.searchKey);
+
+      }
+
+    );
+
+    // Get contacts' count.
     this.getContactsCount();
 
+    // Get page contacts.
     this.getPageContacts(this.pageSize, 0);
 
   }
 
+  /**
+   *
+   * Adds seed contacts to API.
+   *
+   */
   public addSeedContacts(): void {
 
     this.componentStatus = 'loading';
@@ -50,12 +78,21 @@ export class ContactsComponent implements OnInit {
 
       },
 
-      (error) => { }
+      (error) => {
+
+        this.componentStatus = 'loaded';
+
+      }
 
     );
 
   }
 
+  /**
+   *
+   * Gets contacts' count.
+   *
+   */
   public getContactsCount(): void {
 
     this.contactsService.getContactsCount().subscribe(
@@ -72,6 +109,15 @@ export class ContactsComponent implements OnInit {
 
   }
 
+  /**
+   *
+   * Gets page contacts.
+   *
+   * @param limit Limit per page.
+   * @param skip Number of items to skip.
+   * @param filters Filters.
+   * @param sort Sort criterion.
+   */
   public getPageContacts(limit: number, skip: number, filters?: { [property: string]: string }, sort?: any): void {
 
     this.componentStatus = 'loading';
@@ -106,22 +152,48 @@ export class ContactsComponent implements OnInit {
 
   }
 
-  public searchContacts(): void {
+  /**
+   *
+   * Searches contacts.
+   *
+   * @param searchKey Search key.
+   */
+  public searchContacts(searchKey): void {
 
-    this.contactsService.searchContacts('pigeon').subscribe(
+    if (searchKey.length === 0) {
 
-      (response) => {
+      this.getPageContacts(this.pageSize, 0);
 
-        this.pageContacts = response;
+    } else {
 
-      },
+      this.componentStatus = 'loading';
 
-      (error) => { }
+      this.contactsService.searchContacts(searchKey).subscribe(
 
-    );
+        (response) => {
+
+          this.pageContacts = response;
+
+          this.contactsCount = this.pageContacts.length;
+
+          this.componentStatus = 'loaded';
+
+        },
+
+        (error) => { }
+
+      );
+
+    }
 
   }
 
+  /**
+   *
+   * Update page.
+   *
+   * @param state Clarity Datagrid state.
+   */
   public updatePage(state: State): void {
 
     let filters: { [property: string]: string } = undefined;
