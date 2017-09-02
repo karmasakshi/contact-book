@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
+import 'clarity-icons/shapes/all-shapes';
+
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  templateUrl: './app.component.html'
 })
-export class AppComponent {
-  title = 'app';
-}
+export class AppComponent { }
