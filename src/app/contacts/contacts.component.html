@@ -1,37 +1,44 @@
+<!-- Action Bar -->
 <div class="row">
   <div class="col-xs-12 text-right">
-
-    <button class="btn btn-primary" style="margin: 0;" type="button" (click)="addSeedContacts()">Add Seed Contacts</button>
-
+    <button aria-label="Add Seed Contacts" class="btn btn-primary" style="margin: 0;" type="button" (click)="addSeedContacts()">Add Seed Contacts</button>
   </div>
 </div>
 
+<!-- Datagrid -->
 <clr-datagrid (clrDgRefresh)="updatePage($event)" [clrDgLoading]="componentStatus === 'loading'">
 
+  <!-- Header: First Name -->
   <clr-dg-column [clrDgField]="'firstName'">
     <ng-container *clrDgHideableColumn="{ hidden: false }">First Name</ng-container>
   </clr-dg-column>
 
+  <!-- Header: Last Name -->
   <clr-dg-column [clrDgField]="'lastName'">
     <ng-container *clrDgHideableColumn="{ hidden: false }">Last Name</ng-container>
   </clr-dg-column>
 
+  <!-- Header: Email -->
   <clr-dg-column [clrDgField]="'email'">
     <ng-container *clrDgHideableColumn="{ hidden: false }">Email</ng-container>
   </clr-dg-column>
 
+  <!-- Header: Phone -->
   <clr-dg-column [clrDgField]="'phone'">
     <ng-container *clrDgHideableColumn="{ hidden: false }">Phone</ng-container>
   </clr-dg-column>
 
+  <!-- Header: Created At -->
   <clr-dg-column [clrDgField]="'createdAt'">
     <ng-container *clrDgHideableColumn="{ hidden: false }">Created At</ng-container>
   </clr-dg-column>
 
+  <!-- Header: Updated At -->
   <clr-dg-column [clrDgField]="'updatedAt'">
     <ng-container *clrDgHideableColumn="{ hidden: false }">Updated At</ng-container>
   </clr-dg-column>
 
+  <!-- Content -->
   <clr-dg-row *ngFor="let contact of pageContacts">
     <clr-dg-cell>{{ contact.firstName }}</clr-dg-cell>
     <clr-dg-cell>{{ contact.lastName }}</clr-dg-cell>
@@ -41,6 +48,7 @@
     <clr-dg-cell>{{ contact.updatedAt | date }}</clr-dg-cell>
   </clr-dg-row>
 
+  <!-- Footer -->
   <clr-dg-footer>
     {{ contactsCount > 0 ? pagination.firstItem + 1 : 0 }} - {{ contactsCount > 0 ? pagination.lastItem + 1 : 0 }} of {{ pagination.totalItems }} contacts
     <clr-dg-pagination #pagination [clrDgTotalItems]="contactsCount" [clrDgPageSize]="pageSize"></clr-dg-pagination>

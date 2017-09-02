@@ -8,11 +8,22 @@ import { Contact } from '../contact';
 @Injectable()
 export class ContactsService {
 
-  constructor(private httpClient: HttpClient) { }
+  private apiEndpoint: string;
 
+  constructor(private httpClient: HttpClient) {
+
+    this.apiEndpoint = 'http://localhost:1337/contacts';
+
+  }
+
+  /**
+   *
+   * Adds seed contacts to API.
+   *
+   */
   public addSeedContacts(): Observable<Contact[]> {
 
-    return this.httpClient.post<Contact[]>('http://localhost:1337/contacts', [
+    return this.httpClient.post<Contact[]>(this.apiEndpoint, [
       {
         "email": "jack.pigeon@gmail.com",
         "firstName": "Jack",
@@ -89,12 +100,26 @@ export class ContactsService {
 
   }
 
+  /**
+   *
+   * Gets contacts' count.
+   *
+   */
   public getContactsCount(): Observable<number> {
 
-    return this.httpClient.get<number>('http://localhost:1337/contacts/count');
+    return this.httpClient.get<number>(this.apiEndpoint + '/count');
 
   }
 
+  /**
+   *
+   * Gets page contacts.
+   *
+   * @param limit Limit per page.
+   * @param skip Number of items to skip.
+   * @param filters Filters.
+   * @param sort Sort criterion.
+   */
   public getPageContacts(limit: number, skip: number, filters?: { [property: string]: string }, sort?: any): Observable<Contact[]> {
 
     let queryParameters = new HttpParams();
@@ -127,7 +152,7 @@ export class ContactsService {
 
     }
 
-    return this.httpClient.get<Contact[]>('http://localhost:1337/contacts', { params: queryParameters });
+    return this.httpClient.get<Contact[]>(this.apiEndpoint, { params: queryParameters });
 
   }
 
