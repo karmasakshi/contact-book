@@ -156,4 +156,20 @@ export class ContactsService {
 
   }
 
+  /**
+   *
+   * Searches contacts.
+   *
+   * @param searchKey Search key.
+   */
+  public searchContacts(searchKey: string): Observable<Contact[]> {
+
+    let queryParameters = new HttpParams();
+
+    queryParameters = queryParameters.append('searchKey', searchKey);
+
+    return this.httpClient.get<Contact[]>(this.apiEndpoint + '/search', { params: queryParameters });
+
+  }
+
 }

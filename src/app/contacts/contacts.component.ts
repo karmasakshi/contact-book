@@ -106,6 +106,22 @@ export class ContactsComponent implements OnInit {
 
   }
 
+  public searchContacts(): void {
+
+    this.contactsService.searchContacts('pigeon').subscribe(
+
+      (response) => {
+
+        this.pageContacts = response;
+
+      },
+
+      (error) => { }
+
+    );
+
+  }
+
   public updatePage(state: State): void {
 
     let filters: { [property: string]: string } = undefined;
