@@ -1,7 +1,7 @@
-<clr-datagrid>
+<clr-datagrid (clrDgRefresh)="updateActivePage($event)" [clrDgLoading]="componentStatus === 'loading'">
 
-  <clr-dg-column>First Name</clr-dg-column>
-  <clr-dg-column>Last Name</clr-dg-column>
+  <clr-dg-column [clrDgField]="'firstName'">First Name</clr-dg-column>
+  <clr-dg-column [clrDgField]="'lastName'">Last Name</clr-dg-column>
 
   <clr-dg-row *ngFor="let contact of contacts">
     <clr-dg-cell>{{ contact.firstName }}</clr-dg-cell>

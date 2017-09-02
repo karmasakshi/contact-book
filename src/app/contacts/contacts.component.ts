@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { State } from 'clarity-angular';
+
 import { Contact } from '../contact';
 
 import { ContactsService } from '../services/contacts.service';
@@ -11,14 +13,14 @@ import { ContactsService } from '../services/contacts.service';
 })
 export class ContactsComponent implements OnInit {
 
-  public activePageNumber: number;
+  public componentStatus: 'loading' | 'loaded';
   public contacts: Contact[];
   public pageSize: number;
   public totalContactsCount: number;
 
   constructor(private contactsService: ContactsService) {
 
-    this.activePageNumber = 1;
+    this.componentStatus = 'loaded';
 
     this.contacts = [];
 
@@ -29,6 +31,30 @@ export class ContactsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.getTotalContactsCount();
+
+    this.getActivePageContacts(this.pageSize, 0);
+
+  }
+
+  public getActivePageContacts(limit: number, skip: number): void {
+
+    this.contactsService.getContacts(limit, skip).subscribe(
+
+      (response) => {
+
+        this.contacts = response;
+
+      },
+
+      (error) => { }
+
+    );
+
+  }
+
+  public getTotalContactsCount(): void {
 
     this.contactsService.getTotalContactsCount().subscribe(
 
@@ -42,17 +68,15 @@ export class ContactsComponent implements OnInit {
 
     );
 
-    this.contactsService.getContacts(this.activePageNumber, this.pageSize).subscribe(
+  }
 
-      (response) => {
+  public updateActivePage(state: State): void {
 
-        this.contacts = response;
+    this.componentStatus = 'loading';
 
-      },
+    this.getActivePageContacts(state.page.size, state.page.from);
 
-      (error) => { }
-
-    );
+    this.componentStatus = 'loaded';
 
   }
 
