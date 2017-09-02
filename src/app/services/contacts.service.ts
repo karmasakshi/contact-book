@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/observable';
@@ -16,9 +16,39 @@ export class ContactsService {
 
   }
 
-  public getPageContacts(limit: number, skip: number): Observable<Contact[]> {
+  public getPageContacts(limit: number, skip: number, filters?: { [property: string]: string }, sort?: any): Observable<Contact[]> {
 
-    return this.httpClient.get<Contact[]>('http://localhost:1337/contacts?limit=' + limit + '&skip=' + skip);
+    let queryParameters = new HttpParams();
+
+    queryParameters = queryParameters.append('limit', String(limit));
+
+    queryParameters = queryParameters.append('skip', String(skip));
+
+    if (filters) {
+
+      let filterQuery: any = {};
+
+      Object.keys(filters).forEach(filter => {
+
+        filterQuery[filter] = {
+          contains: filters[filter]
+        }
+
+      });
+
+      queryParameters = queryParameters.append('where', JSON.stringify(filterQuery));
+
+    }
+
+    if (sort) {
+
+      let sortQuery: string = `${sort.by} ${sort.reverse ? 'DESC' : 'ASC'}`;
+
+      queryParameters = queryParameters.append('sort', sortQuery);
+
+    }
+
+    return this.httpClient.get<Contact[]>('http://localhost:1337/contacts', { params: queryParameters });
 
   }
 

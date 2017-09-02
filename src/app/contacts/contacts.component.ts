@@ -54,15 +54,25 @@ export class ContactsComponent implements OnInit {
 
   }
 
-  public getPageContacts(limit: number, skip: number): void {
+  public getPageContacts(limit: number, skip: number, filters?: { [property: string]: string }, sort?: any): void {
 
     this.componentStatus = 'loading';
 
-    this.contactsService.getPageContacts(limit, skip).subscribe(
+    this.contactsService.getPageContacts(limit, skip, filters, sort).subscribe(
 
       (response) => {
 
         this.pageContacts = response;
+
+        if (filters) {
+
+          this.contactsCount = this.pageContacts.length;
+
+        } else {
+
+          this.getContactsCount();
+
+        }
 
         this.componentStatus = 'loaded';
 
@@ -80,7 +90,23 @@ export class ContactsComponent implements OnInit {
 
   public updatePage(state: State): void {
 
-    this.getPageContacts(state.page.size, state.page.from);
+    let filters: { [property: string]: string } = undefined;
+
+    if (state.hasOwnProperty('filters')) {
+
+      filters = {};
+
+      for (let filter of state.filters) {
+
+        let { property, value } = <{ property: string, value: string }>filter;
+
+        filters[property] = value;
+
+      }
+
+    }
+
+    this.getPageContacts(state.page.size, state.page.from, filters, state.sort);
 
   }
 

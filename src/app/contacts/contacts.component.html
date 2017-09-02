@@ -14,7 +14,7 @@
   </clr-dg-row>
 
   <clr-dg-footer>
-    {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} contacts
+    {{ contactsCount > 0 ? pagination.firstItem + 1 : 0 }} - {{ contactsCount > 0 ? pagination.lastItem + 1 : 0 }} of {{ pagination.totalItems }} contacts
     <clr-dg-pagination #pagination [clrDgTotalItems]="contactsCount" [clrDgPageSize]="pageSize"></clr-dg-pagination>
   </clr-dg-footer>
 
