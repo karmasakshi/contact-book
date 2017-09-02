@@ -7,6 +7,10 @@ const ROUTES: Routes = [
   {
     component: ContactsComponent,
     path: ''
+  },
+  {
+    path: '**',
+    redirectTo: ''
   }
 ];
 

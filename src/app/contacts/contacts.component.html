@@ -1,16 +1,21 @@
-<clr-datagrid (clrDgRefresh)="updateActivePage($event)" [clrDgLoading]="componentStatus === 'loading'">
+<clr-datagrid (clrDgRefresh)="updatePage($event)" [clrDgLoading]="componentStatus === 'loading'">
 
-  <clr-dg-column [clrDgField]="'firstName'">First Name</clr-dg-column>
-  <clr-dg-column [clrDgField]="'lastName'">Last Name</clr-dg-column>
+  <clr-dg-column [clrDgField]="'firstName'">
+    <ng-container *clrDgHideableColumn="{ hidden: false }">First Name</ng-container>
+  </clr-dg-column>
 
-  <clr-dg-row *ngFor="let contact of contacts">
+  <clr-dg-column [clrDgField]="'lastName'">
+    <ng-container *clrDgHideableColumn="{ hidden: false }">Last Name</ng-container>
+  </clr-dg-column>
+
+  <clr-dg-row *ngFor="let contact of pageContacts">
     <clr-dg-cell>{{ contact.firstName }}</clr-dg-cell>
     <clr-dg-cell>{{ contact.lastName }}</clr-dg-cell>
   </clr-dg-row>
 
   <clr-dg-footer>
     {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} contacts
-    <clr-dg-pagination #pagination [clrDgTotalItems]="totalContactsCount" [clrDgPageSize]="pageSize"></clr-dg-pagination>
+    <clr-dg-pagination #pagination [clrDgTotalItems]="contactsCount" [clrDgPageSize]="pageSize"></clr-dg-pagination>
   </clr-dg-footer>
 
 </clr-datagrid>

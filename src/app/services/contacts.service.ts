@@ -10,15 +10,15 @@ export class ContactsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getContacts(limit: number, skip: number): Observable<Contact[]> {
+  public getContactsCount(): Observable<number> {
 
-    return this.httpClient.get<Contact[]>('http://localhost:1337/contacts?limit=' + limit + '&skip=' + skip);
+    return this.httpClient.get<number>('http://localhost:1337/contacts/count');
 
   }
 
-  public getTotalContactsCount(): Observable<number> {
+  public getPageContacts(limit: number, skip: number): Observable<Contact[]> {
 
-    return this.httpClient.get<number>('http://localhost:1337/contacts/total-count');
+    return this.httpClient.get<Contact[]>('http://localhost:1337/contacts?limit=' + limit + '&skip=' + skip);
 
   }
 
