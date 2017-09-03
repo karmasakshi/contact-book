@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
 
@@ -44,8 +44,6 @@ export class ContactsComponent implements OnInit {
     this.searchFormGroup.valueChanges.debounceTime(300).subscribe(
 
       (changes) => {
-
-        console.log(changes);
 
         this.searchContacts(changes.searchKey);
 

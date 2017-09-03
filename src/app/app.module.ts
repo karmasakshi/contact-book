@@ -21,6 +21,10 @@ import { ContactsComponent } from './contacts/contacts.component';
     HeaderComponent,
     ContactsComponent
   ],
+  exports: [
+    FormsModule,
+    ReactiveFormsModule
+  ],
   imports: [
 
     HttpClientModule,
